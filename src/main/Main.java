@@ -1,7 +1,5 @@
 package main;
 
-import java.awt.event.KeyEvent;
-
 import input.Keyboard;
 import input.Mouse;
 import javafx.animation.Animation;
@@ -16,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import scenes.Scene;
+import scenes.TitleScene;
 
 /**
  * Simple mouse event demo (using lambdas)
@@ -27,10 +26,10 @@ import scenes.Scene;
  */
 public class Main extends Application {
 	
-	private final String appName="Candy Defense";
-	private final int WIDTH=600;
-	private final int HEIGHT=500;
-	private final int FPS=60;
+	private static final String appName="Candy Defense";
+	public static final int WIDTH=1600;
+	public static final int HEIGHT=900;
+	private static final int FPS=60;
 
 	private GraphicsContext gc;
 	private Scene currentScene;
@@ -45,9 +44,14 @@ public class Main extends Application {
 		});
 		
 		//set mouse callbacks
-		scene.setOnMousePressed(e -> {
+		scene.setOnMouseMoved(e->{
+			Mouse.onMouseMove((int)e.getSceneX(), (int)e.getSceneY());
 		});
-		scene.setOnMouseReleased(e -> {
+		scene.setOnMousePressed(e-> {
+			Mouse.onMousePressed();
+		});
+		scene.setOnMouseReleased(e-> {
+			Mouse.onMouseReleased();
 		});
 	}
 
@@ -62,6 +66,7 @@ public class Main extends Application {
 	
 	private void update() {
 		Keyboard.update();
+		Mouse.update();
 		if (currentScene!=null) {
 			currentScene=currentScene.update();
 		}
@@ -74,6 +79,8 @@ public class Main extends Application {
 	public void start(Stage theStage) {
 		Keyboard.init();
 		Mouse.init();
+		currentScene=new TitleScene();
+		
 		theStage.setTitle(appName);
 
 		Group root=new Group();
