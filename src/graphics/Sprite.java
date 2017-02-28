@@ -14,4 +14,8 @@ public class Sprite {
 	public void draw(GraphicsContext gc, int x, int y) {
 		gc.drawImage(image, x, y);
 	}
+	
+	public void draw(GraphicsContext gc, int x, int y, int width, int height) {
+		gc.drawImage(image, x, y, width, height);
+	}
 }

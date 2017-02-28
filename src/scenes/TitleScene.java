@@ -13,17 +13,20 @@ public class TitleScene extends Scene {
 	
 	public TitleScene() {
 		titleScreenSprite=new Sprite("TitleScreen.png");
-		playButton=new Button(new Rectangle(Main.WIDTH/2-150, Main.HEIGHT-170, 300, 70), "PLAY");
+		playButton=new Button(new Rectangle(Main.WIDTH/2-Main.WIDTH/10, Main.HEIGHT-Main.WIDTH/10, Main.WIDTH/5, Main.WIDTH/15), "PLAY", Main.WIDTH/20);
 		
 	}
 	
 	public void render(GraphicsContext gc) {
-		titleScreenSprite.draw(gc, 0, 0);
+		titleScreenSprite.draw(gc, 0, 0, Main.WIDTH, Main.HEIGHT);
 		playButton.render(gc);
 	}
 	
 	public Scene update() {
 		playButton.update();
+		if (playButton.getClickedOn()) {
+			return new MainScene();
+		}
 		return this;
 	}
 	

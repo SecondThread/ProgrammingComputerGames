@@ -27,8 +27,8 @@ import scenes.TitleScene;
 public class Main extends Application {
 	
 	private static final String appName="Candy Defense";
-	public static final int WIDTH=1600;
-	public static final int HEIGHT=900;
+	public static final int WIDTH=1600/2;
+	public static final int HEIGHT=900/2;
 	private static final int FPS=60;
 
 	private GraphicsContext gc;
