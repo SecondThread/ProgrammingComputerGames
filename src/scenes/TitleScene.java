@@ -12,7 +12,7 @@ public class TitleScene extends Scene {
 	private Button playButton;
 	
 	public TitleScene() {
-		titleScreenSprite=new Sprite("TitleScreen.png");
+		titleScreenSprite=Sprite.getSprite("TitleScreen.png");
 		playButton=new Button(new Rectangle(Main.WIDTH/2-Main.WIDTH/10, Main.HEIGHT-Main.WIDTH/10, Main.WIDTH/5, Main.WIDTH/15), "PLAY", Main.WIDTH/20);
 		
 	}

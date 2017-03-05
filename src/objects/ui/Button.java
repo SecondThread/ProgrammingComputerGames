@@ -37,10 +37,10 @@ public class Button extends GameObject {
 
 		mouseOver=boundingBox.contains(new Point2D(Mouse.getMouseX(), Mouse.getMouseY()));
 		if (mouseOver) {//if the mouse is over, fade toward expanded, otherwise fade toward not expanded.
-			progress=GeneralMath.lerp(progress, 1, 0.1);
+			progress=GeneralMath.lerp(progress, 1, 0.3);
 		}
 		else {
-			progress=GeneralMath.lerp(progress, 0, 0.1);
+			progress=GeneralMath.lerp(progress, 0, 0.3);
 		}
 		pressed=mouseOver&&Mouse.getMouseDown();
 	}
