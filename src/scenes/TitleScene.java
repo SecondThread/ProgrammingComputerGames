@@ -4,6 +4,7 @@ import graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Rectangle;
 import main.Main;
+import math.Vector2;
 import objects.ui.Button;
 
 public class TitleScene extends Scene {
@@ -18,7 +19,7 @@ public class TitleScene extends Scene {
 	}
 	
 	public void render(GraphicsContext gc) {
-		titleScreenSprite.draw(gc, 0, 0, Main.WIDTH, Main.HEIGHT);
+		titleScreenSprite.draw(gc, Vector2.ZERO, Main.WIDTH, Main.HEIGHT);
 		playButton.render(gc);
 	}
 	

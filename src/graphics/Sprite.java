@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import math.Vector2;
 
 public class Sprite {
 	
@@ -24,11 +25,15 @@ public class Sprite {
 		image=new Image(spriteName);
 	}
 	
-	public void draw(GraphicsContext gc, int x, int y) {
+	public void draw(GraphicsContext gc, Vector2 worldPosition) {
+		double x=worldPosition.getX();
+		double y=worldPosition.getY();
 		gc.drawImage(image, x, y);
 	}
 	
-	public void draw(GraphicsContext gc, int x, int y, int width, int height) {
+	public void draw(GraphicsContext gc, Vector2 worldPosition, double width, double height) {
+		double x=worldPosition.getX();
+		double y=worldPosition.getY();
 		gc.drawImage(image, x, y, width, height);
 	}
 }

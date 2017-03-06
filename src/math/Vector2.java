@@ -22,4 +22,8 @@ public class Vector2 {
 	public double distance(Vector2 other) {
 		return Math.hypot(x-other.getX(), y-other.getY());
 	}
+	
+	public Vector2 scaleBy(double scalar) {
+		return new Vector2(x*scalar, y*scalar);
+	}
 }
