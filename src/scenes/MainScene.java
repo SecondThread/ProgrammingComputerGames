@@ -6,14 +6,17 @@ import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
 import math.Vector2;
 import objects.GameObject;
+import objects.Player;
 import objects.tiles.GrassTile;
 
 public class MainScene extends Scene {
 	
-	private List<GameObject> gameObjects=new ArrayList<>();
+	private static List<GameObject> gameObjects;
 	
 	public MainScene() {
+		gameObjects=new ArrayList<>();
 		gameObjects.add(new GrassTile(new Vector2(100, 350), 400, 50));
+		gameObjects.add(new Player(new Vector2(400, 0)));
 	}
 	
 	public Scene update() {
@@ -28,4 +31,9 @@ public class MainScene extends Scene {
 			gameObjects.get(i).render(gc);;
 		}
 	}
+	
+	public static List<GameObject> getGameObjects() {
+		return gameObjects;
+	}
+	
 }

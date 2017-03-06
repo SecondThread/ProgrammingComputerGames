@@ -24,6 +24,7 @@ import scenes.TitleScene;
  * Modified By:	David Harmeyer 
  *         		Rade Latinovich
  */
+
 public class Main extends Application {
 	
 	private static final String appName="Candy Defense";
