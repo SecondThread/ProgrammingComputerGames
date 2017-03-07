@@ -38,4 +38,8 @@ public class Vector2 {
 	public double dot(Vector2 other) {
 		return this.x*other.getY()+this.y*other.getY();
 	}
+	
+	public double angleTo(Vector2 other) {
+		return Math.atan2(other.y-y, other.x-x);
+	}
 }

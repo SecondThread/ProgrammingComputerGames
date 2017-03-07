@@ -17,11 +17,13 @@ public class Player extends GameObject implements Collidable {
 	private static final Vector2 gravity=new Vector2(0, 0.4);
 	private static final double friction=0.8, speed=1, jumpPower=10;
 	private boolean grounded=false;
+	private Gun gun;
 	
 	public Player(Vector2 position) {
 		this.position=position;
 		velocity=Vector2.ZERO;
 		playerSprite=Sprite.getSprite("tomatoCharacter.png");
+		gun=new Gun(position);
 		width=100;
 		height=100;
 	}
@@ -41,10 +43,12 @@ public class Player extends GameObject implements Collidable {
 		velocity=velocity.add(gravity);
 		velocity=new Vector2(velocity.getX()*friction, velocity.getY());
 		move();
+		gun.update(position);
 	}
 	
 	public void render(GraphicsContext gc) {
 		playerSprite.draw(gc, position.subtract(new Vector2(width/2, height/2)), width, height);
+		gun.render(gc);
 	}
 
 	public boolean touching(Collidable other) {
@@ -52,7 +56,8 @@ public class Player extends GameObject implements Collidable {
 	}
 
 	public BoundingBox getBoundingBox() {
-		BoundingBox toReturn=new BoundingBox(position.getX()-width/2, position.getY()-height/2, width, height);
+		final double boundingBoxScalar=0.5;
+		BoundingBox toReturn=new BoundingBox(position.getX()-width/2*boundingBoxScalar, position.getY()-height/2*boundingBoxScalar, width*boundingBoxScalar, height*boundingBoxScalar);
 		return toReturn;
 	}
 	
