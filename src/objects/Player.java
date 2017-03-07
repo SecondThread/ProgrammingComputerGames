@@ -33,7 +33,8 @@ public class Player extends GameObject implements Collidable {
 		if (Keyboard.getKeyDown('A')) {
 			velocity=new Vector2(velocity.getX()-speed, velocity.getY());
 		}
-		if (Keyboard.getKeyPressed('W')) {
+		if ((Keyboard.getKeyPressed('W'))&&grounded) {
+			System.out.println(grounded);
 			velocity=new Vector2(velocity.getX(), -jumpPower);
 		}
 		
@@ -70,6 +71,9 @@ public class Player extends GameObject implements Collidable {
 			}
 			velocity=new Vector2(velocity.getX(), 0);
 			grounded=true;
+		}
+		else {
+			grounded=false;
 		}
 	}
 	
