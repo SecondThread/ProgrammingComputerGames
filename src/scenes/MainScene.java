@@ -9,6 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import math.Vector2;
 import objects.GameObject;
 import objects.Player;
+import objects.tiles.DirtTile;
 import objects.tiles.GrassTile;
 
 public class MainScene extends Scene {
@@ -20,6 +21,9 @@ public class MainScene extends Scene {
 	public MainScene() {
 		gameObjects=new ArrayList<>();
 		gameObjects.add(new GrassTile(new Vector2(100, 350), 400, 50));
+		gameObjects.add(new GrassTile(new Vector2(0, 300), 100, 100));
+		gameObjects.add(new GrassTile(new Vector2(500, 250), 200, 200));
+		gameObjects.add(new GrassTile(new Vector2(200, 140), 200, 60));
 		player=new Player(new Vector2(400, 0));
 		gameObjects.add(player);
 		sky=Sprite.getSprite("sky.png");
