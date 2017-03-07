@@ -2,10 +2,12 @@ package objects;
 
 import java.util.List;
 
+import graphics.Camera;
 import graphics.Sprite;
 import input.Keyboard;
 import javafx.geometry.BoundingBox;
 import javafx.scene.canvas.GraphicsContext;
+import main.Main;
 import math.Vector2;
 import scenes.MainScene;
 
@@ -18,6 +20,7 @@ public class Player extends GameObject implements Collidable {
 	private static final double friction=0.8, speed=1, jumpPower=10;
 	private boolean grounded=false;
 	private Gun gun;
+	private int health=200, maxHealth=200, counterToHealing=0;
 	
 	public Player(Vector2 position) {
 		this.position=position;
@@ -43,6 +46,7 @@ public class Player extends GameObject implements Collidable {
 		velocity=new Vector2(velocity.getX()*friction, velocity.getY());
 		move();
 		gun.update(position);
+		tryToHeal();
 	}
 	
 	public void render(GraphicsContext gc) {
@@ -50,6 +54,11 @@ public class Player extends GameObject implements Collidable {
 		gun.render(gc);
 	}
 
+	public void postRender(GraphicsContext gc) {
+		double alpha=1-health/(double)maxHealth;
+		Sprite.getSprite("BloodyScreen.png").draw(gc, Camera.cameraPosition, Main.WIDTH, Main.HEIGHT, alpha);
+	}
+	
 	public boolean touching(Collidable other) {
 		return other.getBoundingBox().intersects(getBoundingBox());
 	}
@@ -125,4 +134,20 @@ public class Player extends GameObject implements Collidable {
 	public Vector2 getPosition() {
 		return position;
 	}
+
+
+	public void onHitWithEnemy() {
+		health-=50;
+		health=Math.max(0, health);
+		counterToHealing=300;
+	}
+	
+	private void tryToHeal() {
+		if (--counterToHealing<0) {
+			health++;
+			counterToHealing=1;
+			health=Math.min(maxHealth, health);
+		}
+	}
+	
 }

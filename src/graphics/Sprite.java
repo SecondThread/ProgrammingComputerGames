@@ -44,6 +44,16 @@ public class Sprite {
 
 		gc.drawImage(image, x, y, width, height);
 	}
+	
+	public void draw(GraphicsContext gc, Vector2 worldPosition, double width, double height, double alpha) {
+		worldPosition=convertToScreenPosition(worldPosition);
+		double x=worldPosition.getX();
+		double y=worldPosition.getY();
+
+		gc.setGlobalAlpha(alpha);
+		gc.drawImage(image, x, y, width, height);
+		gc.setGlobalAlpha(1);
+	}
 
 	// angle is in radians
 	public void draw(GraphicsContext gc, Vector2 worldPosition, double width, double height, double angle, Vector2 centerOfRotation, boolean flipped) {

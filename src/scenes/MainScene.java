@@ -48,6 +48,7 @@ public class MainScene extends Scene {
 		for (int i=0; i<gameObjects.size(); i++) {
 			gameObjects.get(i).render(gc);;
 		}
+		player.postRender(gc);
 	}
 	
 	public static List<GameObject> getGameObjects() {

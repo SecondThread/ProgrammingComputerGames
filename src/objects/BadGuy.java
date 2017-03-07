@@ -44,6 +44,11 @@ public class BadGuy extends GameObject implements HittableWithBullet, Collidable
 		angle+=velocity.getX()/(30*Math.PI);
 		velocity=new Vector2(velocity.getX()*friction, velocity.getY());
 		move();
+		
+		if (position.distance(player.getPosition())<110) {
+			player.onHitWithEnemy();
+			MainScene.getGameObjects().remove(this);
+		}
 	}
 	
 	public void render(GraphicsContext gc) {
