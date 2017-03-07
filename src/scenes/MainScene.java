@@ -24,6 +24,7 @@ public class MainScene extends Scene {
 		gameObjects.add(new GrassTile(new Vector2(0, 300), 100, 100));
 		gameObjects.add(new GrassTile(new Vector2(500, 250), 200, 200));
 		gameObjects.add(new GrassTile(new Vector2(200, 140), 200, 60));
+		gameObjects.add(new DirtTile(new Vector2(-500, 400), 1900, 60));
 		player=new Player(new Vector2(400, 0));
 		gameObjects.add(player);
 		sky=Sprite.getSprite("sky.png");
