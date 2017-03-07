@@ -16,4 +16,9 @@ public class GeneralMath {
 	public static double lerp(double a, double b, double percentToB) {
 		return b*percentToB+(1-percentToB)*a;
 	}
+	
+	//linear interpolation for vectors
+	public static Vector2 lerp(Vector2 a, Vector2 b, double percentToB) {
+		return b.scaleBy(percentToB).add(a.scaleBy(1-percentToB));
+	}
 }
