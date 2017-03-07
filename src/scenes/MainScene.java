@@ -14,16 +14,19 @@ import objects.tiles.GrassTile;
 public class MainScene extends Scene {
 	
 	private static List<GameObject> gameObjects;
+	private static Player player;
 	private static Sprite sky;
 	
 	public MainScene() {
 		gameObjects=new ArrayList<>();
 		gameObjects.add(new GrassTile(new Vector2(100, 350), 400, 50));
-		gameObjects.add(new Player(new Vector2(400, 0)));
+		player=new Player(new Vector2(400, 0));
+		gameObjects.add(player);
 		sky=Sprite.getSprite("sky.png");
 	}
 	
 	public Scene update() {
+		Camera.update(player.getPosition());
 		for (int i=0; i<gameObjects.size(); i++) {
 			gameObjects.get(i).update();
 		}

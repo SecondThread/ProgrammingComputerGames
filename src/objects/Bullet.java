@@ -15,6 +15,7 @@ public class Bullet extends GameObject implements Collidable {
 	private final static double speed=40;
 	private final static double width=64, height=64;
 	private final static int numberOfHitscans=20;
+	private int lifeCounter=400;
 	private Sprite bulletSprite;
 	private Vector2 centerOfSprite=new Vector2(32, 32);
 	
@@ -38,6 +39,9 @@ public class Bullet extends GameObject implements Collidable {
 					gameObjects.remove(this);
 				}
 			}
+		}
+		if (--lifeCounter<0) {
+			gameObjects.remove(this);
 		}
 	}
 	

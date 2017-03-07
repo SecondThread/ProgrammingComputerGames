@@ -1,5 +1,7 @@
 package input;
 
+import graphics.Camera;
+
 public class Mouse {
 
 	private static int mouseX, mouseY;
@@ -35,11 +37,11 @@ public class Mouse {
 	}
 
 	public static int getMouseX() {
-		return mouseX;
+		return (int) (mouseX+Camera.cameraPosition.getX());
 	}
 
 	public static int getMouseY() {
-		return mouseY;
+		return (int) (mouseY+Camera.cameraPosition.getY());
 	}
 
 	public static boolean getMousePressed() {

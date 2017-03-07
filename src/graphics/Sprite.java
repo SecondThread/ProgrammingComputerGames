@@ -30,6 +30,7 @@ public class Sprite {
 	}
 
 	public void draw(GraphicsContext gc, Vector2 worldPosition) {
+		worldPosition=convertToScreenPosition(worldPosition);
 		double x=worldPosition.getX();
 		double y=worldPosition.getY();
 
@@ -37,6 +38,7 @@ public class Sprite {
 	}
 
 	public void draw(GraphicsContext gc, Vector2 worldPosition, double width, double height) {
+		worldPosition=convertToScreenPosition(worldPosition);
 		double x=worldPosition.getX();
 		double y=worldPosition.getY();
 
@@ -47,6 +49,7 @@ public class Sprite {
 	public void draw(GraphicsContext gc, Vector2 worldPosition, double width, double height, double angle, Vector2 centerOfRotation, boolean flipped) {
 		gc.save();
 
+		worldPosition=convertToScreenPosition(worldPosition);
 		double x=worldPosition.getX();
 		double y=worldPosition.getY();
 		
@@ -73,5 +76,9 @@ public class Sprite {
 		
 		gc.drawImage(image, 0, 0, width, height);
 		gc.restore();
+	}
+	
+	public Vector2 convertToScreenPosition(Vector2 worldPosition) {
+		return worldPosition.subtract(Camera.cameraPosition);
 	}
 }
