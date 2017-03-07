@@ -7,6 +7,8 @@ import graphics.Camera;
 import graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 import math.Vector2;
+import objects.BadGuy;
+import objects.BadGuySpawner;
 import objects.GameObject;
 import objects.Player;
 import objects.tiles.DirtTile;
@@ -24,8 +26,11 @@ public class MainScene extends Scene {
 		gameObjects.add(new GrassTile(new Vector2(0, 300), 100, 100));
 		gameObjects.add(new GrassTile(new Vector2(500, 250), 200, 200));
 		gameObjects.add(new GrassTile(new Vector2(200, 140), 200, 60));
+		gameObjects.add(new GrassTile(new Vector2(700, 300), 200, 100));
 		gameObjects.add(new DirtTile(new Vector2(-500, 400), 1900, 60));
-		player=new Player(new Vector2(400, 0));
+		
+		player=new Player(new Vector2(400, 100));
+		gameObjects.add(new BadGuySpawner(player));
 		gameObjects.add(player);
 		sky=Sprite.getSprite("sky.png");
 	}
