@@ -39,7 +39,13 @@ public class Vector2 {
 		return this.x*other.getY()+this.y*other.getY();
 	}
 	
+	//angle is in radians from -pi to pi
 	public double angleTo(Vector2 other) {
 		return Math.atan2(other.y-y, other.x-x);
+	}
+	
+	//angle in radians
+	public static Vector2 unitVector(double angle) {
+		return new Vector2(Math.cos(angle), Math.sin(angle));
 	}
 }

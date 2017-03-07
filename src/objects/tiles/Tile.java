@@ -4,10 +4,12 @@ import graphics.Sprite;
 import javafx.geometry.BoundingBox;
 import javafx.scene.canvas.GraphicsContext;
 import math.Vector2;
+import objects.Bullet;
 import objects.Collidable;
 import objects.GameObject;
+import objects.HittableWithBullet;
 
-public abstract class Tile extends GameObject implements Collidable{
+public abstract class Tile extends GameObject implements Collidable, HittableWithBullet {
 
 	private Sprite spriteToDraw;
 	private Vector2 position;
@@ -33,5 +35,9 @@ public abstract class Tile extends GameObject implements Collidable{
 	
 	public BoundingBox getBoundingBox() {
 		return new BoundingBox(position.getX(), position.getY(), width, height);
+	}
+	
+	public void onHit(Bullet hitWith) {
+		//do nothing
 	}
 }

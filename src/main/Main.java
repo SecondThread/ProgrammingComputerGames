@@ -54,6 +54,9 @@ public class Main extends Application {
 		scene.setOnMouseReleased(e-> {
 			Mouse.onMouseReleased();
 		});
+		scene.setOnMouseDragged(e->{
+			Mouse.onMouseMove((int)e.getSceneX(), (int)e.getSceneY());
+		});
 	}
 
 	private void render(GraphicsContext gc) {

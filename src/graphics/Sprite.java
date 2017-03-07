@@ -24,6 +24,9 @@ public class Sprite {
 
 	private Sprite(String spriteName) {
 		image=new Image(spriteName);
+		if (image==null) {
+			System.out.println("Invalid name");
+		}
 	}
 
 	public void draw(GraphicsContext gc, Vector2 worldPosition) {
