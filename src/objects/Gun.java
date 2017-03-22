@@ -3,6 +3,7 @@ package objects;
 import graphics.Sprite;
 import input.Mouse;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.media.AudioClip;
 import math.Vector2;
 import scenes.MainScene;
 
@@ -16,10 +17,12 @@ public class Gun {
 	private static boolean flipped=false;
 	private static int shootingCooldown=0, maxShootingCooldown=10;
 	
+	private AudioClip gun_shot;
 	
 	public Gun(Vector2 position) {
 		this.position=position;
 		gunSprite=Sprite.getSprite("assaultrifle.png");
+		gun_shot = new AudioClip(ClassLoader.getSystemResource("gunshot.wav").toString());
 	}
 	
 	public void update(Vector2 playerPosition) {
@@ -52,6 +55,7 @@ public class Gun {
 		}
 		
 		if (Mouse.getMouseDown()) {
+			gun_shot.play();
 			shootingCooldown=maxShootingCooldown;
 			final double distanceFromGun=50;
 			Vector2 positionToCreate=position.add(Vector2.unitVector(angleToMouse).scaleBy(distanceFromGun));

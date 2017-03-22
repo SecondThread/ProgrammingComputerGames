@@ -1,5 +1,16 @@
 package main;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Sequencer;
+
 import input.Keyboard;
 import input.Mouse;
 import javafx.animation.Animation;
@@ -34,6 +45,41 @@ public class Main extends Application {
 
 	private GraphicsContext gc;
 	private Scene currentScene;
+	
+	// Midi:
+	Sequencer sequencer;
+	
+	private void initialize()
+	{
+		// Play background music (from MIDI file)
+				try {
+				// Obtains the default Sequencer connected to a default device.
+		        sequencer = MidiSystem.getSequencer();
+		        // Opens the device, indicating that it should now acquire any
+		        // system resources it requires and become operational.
+		        sequencer.open();
+				} catch (MidiUnavailableException e)
+				{
+					System.out.println("No MIDI sequencer found");
+					System.exit(1);
+				}
+				try {
+		        // create a stream from a file
+		        InputStream is = new BufferedInputStream(new FileInputStream(new File("res/jimi.mid")));
+		        // Sets the current sequence on which the sequencer operates.
+		        // The stream must point to MIDI file data.
+					sequencer.setSequence(is);
+				} catch (IOException e) {
+					System.out.println("Trouble opening midi file");
+					System.exit(1);
+				} catch (InvalidMidiDataException e) {
+					System.out.println("Invalid midi file");
+					System.exit(1);
+				}
+				sequencer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
+		        // Starts playback of the MIDI data in the currently loaded sequence.
+		        sequencer.start();
+	}
 
 	private void setHandlers(javafx.scene.Scene scene) {
 		//set keyboard callbacks
@@ -57,6 +103,11 @@ public class Main extends Application {
 		scene.setOnMouseDragged(e->{
 			Mouse.onMouseMove((int)e.getSceneX(), (int)e.getSceneY());
 		});
+		scene.getWindow().setOnCloseRequest(
+				e -> {
+					sequencer.close(); 
+				}
+				);
 	}
 
 	private void render(GraphicsContext gc) {
@@ -83,6 +134,7 @@ public class Main extends Application {
 	public void start(Stage theStage) {
 		Keyboard.init();
 		Mouse.init();
+		initialize();
 		currentScene=new TitleScene();
 		
 		theStage.setTitle(appName);
