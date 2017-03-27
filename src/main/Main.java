@@ -32,12 +32,11 @@ import scenes.TitleScene;
  * 
  * @author mike slattery
  * 
- * Modified By:	David Harmeyer 
- *         		Rade Latinovich
+ *         Modified By: David Harmeyer Rade Latinovich
  */
 
 public class Main extends Application {
-	
+
 	private static final String appName="Candy Defense";
 	public static final int WIDTH=1600/2;
 	public static final int HEIGHT=900/2;
@@ -45,69 +44,67 @@ public class Main extends Application {
 
 	private GraphicsContext gc;
 	private Scene currentScene;
-	
+
 	// Midi:
 	Sequencer sequencer;
-	
-	private void initialize()
-	{
+
+	private void initialize() {
 		// Play background music (from MIDI file)
-				try {
-				// Obtains the default Sequencer connected to a default device.
-		        sequencer = MidiSystem.getSequencer();
-		        // Opens the device, indicating that it should now acquire any
-		        // system resources it requires and become operational.
-		        sequencer.open();
-				} catch (MidiUnavailableException e)
-				{
-					System.out.println("No MIDI sequencer found");
-					System.exit(1);
-				}
-				try {
-		        // create a stream from a file
-		        InputStream is = new BufferedInputStream(new FileInputStream(new File("res/jimi.mid")));
-		        // Sets the current sequence on which the sequencer operates.
-		        // The stream must point to MIDI file data.
-					sequencer.setSequence(is);
-				} catch (IOException e) {
-					System.out.println("Trouble opening midi file");
-					System.exit(1);
-				} catch (InvalidMidiDataException e) {
-					System.out.println("Invalid midi file");
-					System.exit(1);
-				}
-				sequencer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
-		        // Starts playback of the MIDI data in the currently loaded sequence.
-		        sequencer.start();
+		try {
+			// Obtains the default Sequencer connected to a default device.
+			System.out.println("A");
+			sequencer=MidiSystem.getSequencer();
+			// Opens the device, indicating that it should now acquire any
+			// system resources it requires and become operational.
+			System.out.println("A");
+			sequencer.open();
+		} catch (MidiUnavailableException e) {
+			System.out.println("No MIDI sequencer found");
+			System.exit(1);
+		}
+		try {
+			// create a stream from a file
+			InputStream is=new BufferedInputStream(new FileInputStream(new File("res/jimi.mid")));
+			// Sets the current sequence on which the sequencer operates.
+			// The stream must point to MIDI file data.
+			sequencer.setSequence(is);
+		} catch (IOException e) {
+			System.out.println("Trouble opening midi file");
+			System.exit(1);
+		} catch (InvalidMidiDataException e) {
+			System.out.println("Invalid midi file");
+			System.exit(1);
+		}
+		sequencer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
+		// Starts playback of the MIDI data in the currently loaded sequence.
+		sequencer.start();
 	}
 
 	private void setHandlers(javafx.scene.Scene scene) {
-		//set keyboard callbacks
-		scene.setOnKeyPressed(e-> {
+		// set keyboard callbacks
+		scene.setOnKeyPressed(e -> {
 			Keyboard.onKeyPressed(""+e.getCode().getName());
 		});
-		scene.setOnKeyReleased(e-> {
+		scene.setOnKeyReleased(e -> {
 			Keyboard.onKeyReleased(""+e.getCode().getName());
 		});
-		
-		//set mouse callbacks
-		scene.setOnMouseMoved(e->{
-			Mouse.onMouseMove((int)e.getSceneX(), (int)e.getSceneY());
+
+		// set mouse callbacks
+		scene.setOnMouseMoved(e -> {
+			Mouse.onMouseMove((int) e.getSceneX(), (int) e.getSceneY());
 		});
-		scene.setOnMousePressed(e-> {
+		scene.setOnMousePressed(e -> {
 			Mouse.onMousePressed();
 		});
-		scene.setOnMouseReleased(e-> {
+		scene.setOnMouseReleased(e -> {
 			Mouse.onMouseReleased();
 		});
-		scene.setOnMouseDragged(e->{
-			Mouse.onMouseMove((int)e.getSceneX(), (int)e.getSceneY());
+		scene.setOnMouseDragged(e -> {
+			Mouse.onMouseMove((int) e.getSceneX(), (int) e.getSceneY());
 		});
-		scene.getWindow().setOnCloseRequest(
-				e -> {
-					sequencer.close(); 
-				}
-				);
+		scene.getWindow().setOnCloseRequest(e -> {
+			sequencer.close();
+		});
 	}
 
 	private void render(GraphicsContext gc) {
@@ -118,7 +115,7 @@ public class Main extends Application {
 			currentScene.render(gc);
 		}
 	}
-	
+
 	private void update() {
 		Keyboard.update();
 		Mouse.update();
@@ -136,7 +133,7 @@ public class Main extends Application {
 		Mouse.init();
 		initialize();
 		currentScene=new TitleScene();
-		
+
 		theStage.setTitle(appName);
 
 		Group root=new Group();
@@ -157,7 +154,7 @@ public class Main extends Application {
 		Timeline mainLoop=new Timeline(kf);
 		mainLoop.setCycleCount(Animation.INDEFINITE);
 		mainLoop.play();
-		
+
 		setHandlers(theScene);
 		theStage.show();
 	}
