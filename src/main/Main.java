@@ -52,11 +52,10 @@ public class Main extends Application {
 		// Play background music (from MIDI file)
 		try {
 			// Obtains the default Sequencer connected to a default device.
-			System.out.println("A");
+			System.out.println("Expected sequencer incoming...");
 			sequencer=MidiSystem.getSequencer();
 			// Opens the device, indicating that it should now acquire any
 			// system resources it requires and become operational.
-			System.out.println("A");
 			sequencer.open();
 		} catch (MidiUnavailableException e) {
 			System.out.println("No MIDI sequencer found");

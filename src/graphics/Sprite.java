@@ -10,8 +10,8 @@ import math.Vector2;
 public class Sprite {
 
 	private static HashMap<String, Sprite> sprites=new HashMap<>();
-
 	private Image image;
+	private double alpha=1;
 
 	public static Sprite getSprite(String spriteName) {
 		if (sprites.containsKey(spriteName)) {
@@ -34,7 +34,10 @@ public class Sprite {
 		double x=worldPosition.getX();
 		double y=worldPosition.getY();
 
+		gc.save();
+		gc.setGlobalAlpha(alpha);
 		gc.drawImage(image, x, y);
+		gc.restore();
 	}
 
 	public void draw(GraphicsContext gc, Vector2 worldPosition, double width, double height) {
@@ -42,7 +45,10 @@ public class Sprite {
 		double x=worldPosition.getX();
 		double y=worldPosition.getY();
 
+		gc.save();
+		gc.setGlobalAlpha(alpha);
 		gc.drawImage(image, x, y, width, height);
+		gc.restore();
 	}
 	
 	public void draw(GraphicsContext gc, Vector2 worldPosition, double width, double height, double alpha) {
@@ -50,9 +56,10 @@ public class Sprite {
 		double x=worldPosition.getX();
 		double y=worldPosition.getY();
 
+		gc.save();
 		gc.setGlobalAlpha(alpha);
 		gc.drawImage(image, x, y, width, height);
-		gc.setGlobalAlpha(1);
+		gc.restore();
 	}
 
 	// angle is in radians
@@ -84,6 +91,7 @@ public class Sprite {
 		gc.setTransform(move);
 		//</copied part>
 		
+		gc.setGlobalAlpha(alpha);
 		gc.drawImage(image, 0, 0, width, height);
 		gc.restore();
 	}
@@ -91,4 +99,9 @@ public class Sprite {
 	public Vector2 convertToScreenPosition(Vector2 worldPosition) {
 		return worldPosition.subtract(Camera.cameraPosition);
 	}
+
+	public void setAlpha(double alpha) {
+		this.alpha=alpha;
+	}
+	
 }

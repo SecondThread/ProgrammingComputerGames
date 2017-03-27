@@ -7,6 +7,7 @@ import graphics.Sprite;
 import javafx.geometry.BoundingBox;
 import javafx.scene.canvas.GraphicsContext;
 import math.Vector2;
+import particles.Particle;
 import scenes.MainScene;
 
 public class BadGuy extends GameObject implements HittableWithBullet, Collidable {
@@ -19,6 +20,7 @@ public class BadGuy extends GameObject implements HittableWithBullet, Collidable
 	private static final Vector2 gravity=new Vector2(0, 0.4);
 	private static final double friction=0.95, speed=.2, jumpPower=10;
 	private Random random;
+	private static final int particlesToCreateOnDeath=20;
 	
 	private Player player;
 	
@@ -47,6 +49,7 @@ public class BadGuy extends GameObject implements HittableWithBullet, Collidable
 		
 		if (position.distance(player.getPosition())<110) {
 			player.onHitWithEnemy();
+			onDie();
 			MainScene.getGameObjects().remove(this);
 		}
 	}
@@ -132,4 +135,20 @@ public class BadGuy extends GameObject implements HittableWithBullet, Collidable
 		}
 		return false;
 	}
+
+	
+	private void onDie() {
+		List<GameObject> gameObjects=MainScene.getGameObjects();
+		for (int i=0; i<particlesToCreateOnDeath; i++) {
+			double angle=random.nextDouble()*360;
+			double angularVelocity=random.nextDouble()*0.1;
+			Vector2 offset=new Vector2(random.nextInt(70)-35, random.nextInt(70)-35);
+			final double maxVelocity=25;
+			Vector2 velocityOffset=new Vector2(random.nextDouble()*maxVelocity-maxVelocity/2, random.nextDouble()*maxVelocity-maxVelocity/2);
+			Particle toAdd=new Particle(Sprite.getSprite("CookieSection.png"), position.add(offset), velocity.add(velocityOffset), 
+					20, false, false, false, true, 40, 40, angle, angularVelocity);
+			gameObjects.add(toAdd);
+		}
+	}
+
 }
