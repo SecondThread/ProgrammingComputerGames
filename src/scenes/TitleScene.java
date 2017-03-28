@@ -14,7 +14,7 @@ public class TitleScene extends Scene {
 	
 	public TitleScene() {
 		titleScreenSprite=Sprite.getSprite("TitleScreen.png");
-		playButton=new Button(new Rectangle(Main.WIDTH/2-Main.WIDTH/10, Main.HEIGHT-Main.WIDTH/10, Main.WIDTH/5, Main.WIDTH/15), "PLAY", Main.WIDTH/20);
+		playButton=new Button(new Rectangle(Main.WIDTH/2-Main.WIDTH/10, Main.HEIGHT-Main.WIDTH/10, Main.WIDTH/5, Main.WIDTH/15), "NEXT", Main.WIDTH/20);
 		
 	}
 	
@@ -26,7 +26,7 @@ public class TitleScene extends Scene {
 	public Scene update() {
 		playButton.update();
 		if (playButton.getClickedOn()) {
-			return new MainScene();
+			return new InstructionsScene();
 		}
 		return this;
 	}
