@@ -19,6 +19,7 @@ public class Player extends GameObject implements Collidable {
 	private static final Vector2 gravity=new Vector2(0, 0.4);
 	private static final double friction=0.8, speed=1, jumpPower=10;
 	private boolean grounded=false;
+	private boolean hasWon=false;
 	private Gun gun;
 	private int health=200, maxHealth=200, counterToHealing=0;
 	
@@ -47,6 +48,7 @@ public class Player extends GameObject implements Collidable {
 		move();
 		gun.update(position);
 		tryToHeal();
+		tryToWin();
 	}
 	
 	public void render(GraphicsContext gc) {
@@ -152,5 +154,21 @@ public class Player extends GameObject implements Collidable {
 	
 	public boolean isDead() {
 		return health<=0;
+	}
+	
+	public boolean hasWon() {
+		return hasWon;
+	}
+	
+	private void tryToWin() {
+		List<GameObject> gameObjects=MainScene.getGameObjects();
+		for (GameObject o:gameObjects) {
+			if (o instanceof Rocket) {
+				double distanceAway=((Rocket) o).getPosition().distance(position);
+				if (distanceAway<200&&Keyboard.getKeyPressed('E')) {
+					hasWon=true;
+				}
+			}
+		}
 	}
 }

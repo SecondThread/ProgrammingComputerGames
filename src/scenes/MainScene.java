@@ -8,10 +8,10 @@ import graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import math.Vector2;
-import objects.BadGuy;
 import objects.BadGuySpawner;
 import objects.GameObject;
 import objects.Player;
+import objects.Rocket;
 import objects.tiles.DirtTile;
 import objects.tiles.GrassTile;
 
@@ -33,6 +33,7 @@ public class MainScene extends Scene {
 		gameObjects.add(new GrassTile(new Vector2(200, 140), 200, 60));
 		gameObjects.add(new GrassTile(new Vector2(700, 300), 200, 100));
 		gameObjects.add(new DirtTile(new Vector2(-500, 400), 1900, 60));
+		gameObjects.add(new Rocket(new Vector2(100, 200)));
 		
 		player=new Player(new Vector2(400, 100));
 		gameObjects.add(new BadGuySpawner(player));
@@ -47,6 +48,9 @@ public class MainScene extends Scene {
 		}
 		if (player.isDead()) {
 			return new YouLoseScene();
+		}
+		if (player.hasWon()) {
+			return new YouWinScene();
 		}
 		return this;
 	}
