@@ -54,6 +54,7 @@ public class Main extends Application {
 			// Obtains the default Sequencer connected to a default device.
 			System.out.println("Expected sequencer incoming...");
 			sequencer=MidiSystem.getSequencer();
+			System.out.println("</error>");
 			// Opens the device, indicating that it should now acquire any
 			// system resources it requires and become operational.
 			sequencer.open();
@@ -124,6 +125,8 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
+		boolean b=true;
+		b&=true;
 		launch(args);
 	}
 

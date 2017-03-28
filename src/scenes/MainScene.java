@@ -6,6 +6,7 @@ import java.util.List;
 import graphics.Camera;
 import graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import math.Vector2;
 import objects.BadGuy;
 import objects.BadGuySpawner;
@@ -16,11 +17,15 @@ import objects.tiles.GrassTile;
 
 public class MainScene extends Scene {
 	
+	private static MainScene mainScene;
 	private static List<GameObject> gameObjects;
 	private static Player player;
 	private static Sprite sky;
+	private int money=0;
+	
 	
 	public MainScene() {
+		mainScene=this;
 		gameObjects=new ArrayList<>();
 		gameObjects.add(new GrassTile(new Vector2(100, 350), 400, 50));
 		gameObjects.add(new GrassTile(new Vector2(0, 300), 100, 100));
@@ -49,10 +54,25 @@ public class MainScene extends Scene {
 			gameObjects.get(i).render(gc);;
 		}
 		player.postRender(gc);
+		gc.save();
+		gc.setFill(Color.YELLOW);
+		gc.fillText("$"+money, 60, 60);
+		gc.restore();
 	}
 	
 	public static List<GameObject> getGameObjects() {
 		return gameObjects;
 	}
 	
+	public static MainScene getScene() {
+		return mainScene;
+	}
+	
+	public void addMoney(int amount) {
+		money+=amount;
+	}
+	
+	public int getMoney() {
+		return money;
+	}
 }

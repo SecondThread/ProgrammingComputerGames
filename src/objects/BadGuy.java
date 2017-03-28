@@ -70,6 +70,7 @@ public class BadGuy extends GameObject implements HittableWithBullet, Collidable
 
 	public void onHit(Bullet hitWith) {
 		//kill myself
+		MainScene.getScene().addMoney(50);
 		MainScene.getGameObjects().remove(this);
 	}
 
