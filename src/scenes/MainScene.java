@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import math.Vector2;
 import objects.BadGuySpawner;
 import objects.GameObject;
+import objects.Obstacle;
 import objects.Player;
 import objects.Rocket;
 import objects.tiles.DirtTile;
@@ -32,8 +33,12 @@ public class MainScene extends Scene {
 		gameObjects.add(new GrassTile(new Vector2(500, 250), 200, 200));
 		gameObjects.add(new GrassTile(new Vector2(200, 140), 200, 60));
 		gameObjects.add(new GrassTile(new Vector2(700, 300), 200, 100));
-		gameObjects.add(new DirtTile(new Vector2(-500, 400), 1900, 60));
-		gameObjects.add(new Rocket(new Vector2(100, 200)));
+		gameObjects.add(new GrassTile(new Vector2(-700, 300), 700, 100));
+		gameObjects.add(new DirtTile(new Vector2(-700, 400), 2100, 60));
+		gameObjects.add(new Rocket(new Vector2(-400, 250)));
+		gameObjects.add(new Obstacle(new Vector2(600, 170), 200, 250, 200));
+		gameObjects.add(new Obstacle(new Vector2(0, 230), 200, 250, 300));
+		gameObjects.add(new DirtTile(new Vector2(1400, -400), 1000, 1000));
 		
 		player=new Player(new Vector2(400, 100));
 		gameObjects.add(new BadGuySpawner(player));
@@ -82,4 +87,9 @@ public class MainScene extends Scene {
 	public int getMoney() {
 		return money;
 	}
+
+	public static Player getPlayer() {
+		return player;
+	}
+	
 }

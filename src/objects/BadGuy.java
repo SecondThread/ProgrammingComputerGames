@@ -6,6 +6,7 @@ import java.util.Random;
 import graphics.Sprite;
 import javafx.geometry.BoundingBox;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import math.Vector2;
 import particles.Particle;
 import scenes.MainScene;
@@ -21,14 +22,16 @@ public class BadGuy extends GameObject implements HittableWithBullet, Collidable
 	private static final double friction=0.95, speed=.2, jumpPower=10;
 	private Random random;
 	private static final int particlesToCreateOnDeath=20;
+	private int health, maxHealth;
 	
 	private Player player;
 	
-	public BadGuy(Vector2 position, Player player) {
+	public BadGuy(Vector2 position, Player player, int maxHealth) {
 		this.position=position;
 		this.player=player;
 		sprite=Sprite.getSprite("tempEnemy.png");
 		random=new Random();
+		this.health=this.maxHealth=maxHealth;
 	}
 	
 	public void update() {
@@ -55,7 +58,16 @@ public class BadGuy extends GameObject implements HittableWithBullet, Collidable
 	}
 	
 	public void render(GraphicsContext gc) {
+		gc.save();
+		gc.setFill(Color.BLACK);
+		Vector2 worldPosition=Sprite.convertToScreenPosition(position.subtract(new Vector2(50, 60)));
+		double x=worldPosition.getX();
+		double y=worldPosition.getY();
+		gc.fillRect(x, y, 100, 10);
+		gc.setFill(Color.RED);
+		gc.fillRect(x+1, y+1, 98.*health/maxHealth, 8);
 		sprite.draw(gc, position, width, height, angle, centerOfRotation, false);
+		gc.restore();
 	}
 	
 	public boolean touching(Collidable other) {
@@ -70,8 +82,12 @@ public class BadGuy extends GameObject implements HittableWithBullet, Collidable
 
 	public void onHit(Bullet hitWith) {
 		//kill myself
-		MainScene.getScene().addMoney(50);
-		MainScene.getGameObjects().remove(this);
+		health--;
+		System.out.println("hit");
+		if (health<=0) {
+			MainScene.getScene().addMoney(50);
+			MainScene.getGameObjects().remove(this);			
+		}
 	}
 
 	

@@ -9,16 +9,23 @@ import javafx.scene.text.Font;
 import math.Vector2;
 import scenes.MainScene;
 
-public class Rocket extends GameObject implements Collidable, HittableWithBullet {
-	
+public class Obstacle extends GameObject implements Collidable, HittableWithBullet {
+
 	private Vector2 position;
-	private Sprite rocketSprite;
-	private int width=300, height=300;
+	private int width, height, cost;
 	private boolean showText=false;
+	private Sprite obstacleSprite;
 	
-	public Rocket(Vector2 position) {
+	public Obstacle(Vector2 position, int width, int height, int cost) {
 		this.position=position;
-		rocketSprite=Sprite.getSprite("rocket.png");
+		this.width=width;
+		this.height=height;
+		this.cost=cost;
+		obstacleSprite=Sprite.getSprite("rockPile.png");
+	}
+	
+	
+	public void onHit(Bullet hitWith) {
 	}
 
 	public boolean touching(Collidable other) {
@@ -33,8 +40,12 @@ public class Rocket extends GameObject implements Collidable, HittableWithBullet
 	
 	public void update() {
 		double distanceFromPlayer=position.distance(MainScene.getPlayer().getPosition());
-		if (distanceFromPlayer<200) {
+		if (distanceFromPlayer<300) {
 			showText=true;
+			if (MainScene.getScene().getMoney()>=cost&&Keyboard.getKeyDown('E')) {
+				MainScene.getScene().addMoney(-cost);
+				MainScene.getGameObjects().remove(this);
+			}
 		}
 		else {
 			showText=false;
@@ -42,23 +53,17 @@ public class Rocket extends GameObject implements Collidable, HittableWithBullet
 	}
 	
 	public void render(GraphicsContext gc) {
-		rocketSprite.draw(gc, position.subtract(new Vector2(width/2, height/2)), width, height);
+		obstacleSprite.draw(gc, position.subtract(new Vector2(width/2, height/2)), width, height);
+		
 		if (showText) {
 			gc.save();
 			gc.setFont(new Font("Arial", 24));
 			gc.setFill(Color.YELLOW);
 			double x=Sprite.convertToScreenPosition(position).getX();
 			double y=Sprite.convertToScreenPosition(position).getY();
-			gc.fillText("Hold 'E' to Escape", x, y);
+			gc.fillText("Hold 'E' to remove for $"+cost, x, y);
 			gc.restore();
 		}
 	}
 
-	public void onHit(Bullet hitWith) {
-		
-	}
-	
-	public Vector2 getPosition() {
-		return position;
-	}
 }

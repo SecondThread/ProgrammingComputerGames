@@ -37,6 +37,7 @@ public class Bullet extends GameObject implements Collidable {
 				if (o instanceof Collidable&&touching((Collidable)o)&&o instanceof HittableWithBullet&&o!=this) {
 					((HittableWithBullet)o).onHit(this);
 					gameObjects.remove(this);
+					return;
 				}
 			}
 		}

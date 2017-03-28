@@ -96,7 +96,7 @@ public class Sprite {
 		gc.restore();
 	}
 	
-	public Vector2 convertToScreenPosition(Vector2 worldPosition) {
+	public static Vector2 convertToScreenPosition(Vector2 worldPosition) {
 		return worldPosition.subtract(Camera.cameraPosition);
 	}
 

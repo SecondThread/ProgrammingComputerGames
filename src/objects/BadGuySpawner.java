@@ -6,8 +6,9 @@ import math.Vector2;
 import scenes.MainScene;
 
 public class BadGuySpawner extends GameObject {
-	private int spawnCounter=100, maxSpawnCounter=120;
+	private int spawnCounter=100, maxSpawnCounter=180;
 	private Player player;
+	private int enemiesSpawned=0;
 	
 	public BadGuySpawner(Player player) {
 		this.player=player;
@@ -27,7 +28,10 @@ public class BadGuySpawner extends GameObject {
 		
 		if (numberOfEnemies<3) {
 			List<GameObject> objects=MainScene.getGameObjects();
-			objects.add(new BadGuy(new Vector2(Math.random()*1000, 0), player));
+			int health=(int) Math.sqrt(enemiesSpawned);
+			health=Math.max(health, 1);
+			objects.add(new BadGuy(new Vector2(Math.random()*1000, 0), player, health));
+			enemiesSpawned++;
 			numberOfEnemies++;
 		}
 	}
