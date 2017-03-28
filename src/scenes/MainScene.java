@@ -45,6 +45,9 @@ public class MainScene extends Scene {
 		for (int i=0; i<gameObjects.size(); i++) {
 			gameObjects.get(i).update();
 		}
+		if (player.isDead()) {
+			return new YouLoseScene();
+		}
 		return this;
 	}
 

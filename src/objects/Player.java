@@ -150,4 +150,7 @@ public class Player extends GameObject implements Collidable {
 		}
 	}
 	
+	public boolean isDead() {
+		return health<=0;
+	}
 }
